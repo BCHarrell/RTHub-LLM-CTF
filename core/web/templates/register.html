@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>RTHub – Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/register.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <!--to prevent Firefox FOUC, this must be here-->
+    <script>let FF_FOUC_FIX;</script>
+</head>
+<body>
+    <div class="header frosted-blur">
+        <div class="header-left">
+        <div class="logo"><img src="{{ url_for('static', filename='images/logo-small.png') }}"></div>
+        <div class="rthub-title">RTHub</div>
+        </div>
+    </div>
+
+    <main class="registration-container" x-data="registerForm()" >
+        <div class="logo-box-wide"><img src="{{ url_for('static', filename='images/logo-large.png') }}"></div>
+
+        <form @submit.prevent="submit" class="registration-form">
+            <h2>Register</h2>
+            <input x-model="username" type="text" name="username" placeholder="Username" required class="rounded-inset-border frosted-blur" />
+            <input x-model="reg_code" type="text" name="reg_code" placeholder="Registration Code (if required)" class="rounded-inset-border frosted-blur" />
+            <div class="submit-container">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+        <p class="error-msg" id="error-toast" x-text="errorMessage"></p>
+
+        <p class="note">
+        Note: If you already have a session, go straight </br> 
+        to the <a href="{{ url_for('core_web.hub_interface') }}">hub</a> unless you want a fresh start.
+        </br></br> Sessions are saved for 10 years by default.
+        </p>
+    </main>
+</body>
+</html>

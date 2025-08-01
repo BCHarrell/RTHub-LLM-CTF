@@ -1,0 +1,12 @@
+services:
+  ctf:
+    build: .
+    ports:
+      - "1337:1337"
+    volumes:
+      - .:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # for accessing host services
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python3 run.py

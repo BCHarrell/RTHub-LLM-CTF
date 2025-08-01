@@ -1,0 +1,30 @@
+.prompt-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.prompt-heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.prompt-content {
+    min-height: 300px;
+    min-width: 800px;
+    max-height: 600px;
+    max-width: 1200px;
+    font-family: monospace;
+    font-size: 1rem;
+    padding: 1rem;
+    overflow-y: auto;
+    white-space: pre-wrap;;
+}
+

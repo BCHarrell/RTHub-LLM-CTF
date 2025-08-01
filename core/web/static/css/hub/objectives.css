@@ -1,0 +1,105 @@
+
+/* Container for the objectives and description panels  */
+.objectives-box {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    align-items: stretch; /* changed from flex-start */
+}
+
+/* Ensure the objectives status grows to match if needed  */
+.objectives-list,
+.objective-desc {
+    flex-grow: 1;
+}
+
+/* Panel layout for the status */
+.objectives-panel {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+}
+
+/*  Panel layout for the description/hint */
+.objective-description-panel {
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Panel titles */
+.panel-title {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Optional small subtext under heading */
+.objective-subtext {
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: var(--text-color-background);
+}
+
+/* List container */
+.objectives-list {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y: auto;
+    max-height: 150px;
+    min-height: 150px;
+}
+
+/* Sets the cursor to a pointer - selectable to show description */
+.objective-name{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Individual objective */
+.objective-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Description section */
+.objective-desc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Objective description field */
+.objective-description-box {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    max-height: 150px;
+    min-height: 150px;
+    white-space: normal; /* Preserve whitespace */
+}
+
+.objective-description-box h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.objective-description-box p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Hint formatting */
+.hint {
+    font-style: italic;
+}

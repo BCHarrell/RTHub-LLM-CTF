@@ -1,0 +1,265 @@
+/* primary grid  */
+.chat-and-file-box {
+    display: flex;
+    gap: 2rem;
+    align-items: stretch;
+}
+/*
+*
+* Chat panel
+*
+*/
+.chat-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 6;
+    max-width: 60%;
+}
+
+/* Chat heading to keep spacing... */
+.chat-panel h2 {
+    margin: 0 0 1rem 0;
+}
+
+/* User/LLM response window */
+.chat-window {
+    overflow-y: auto;
+    min-height: 346px;
+    max-height: 346px;
+    padding: 0.5rem;
+}
+
+/* Chat entries core */
+.chat-entry {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.25rem 0.25rem;
+    overflow-wrap: break-word;
+}
+
+/* user chats on left, system on right */
+.chat-entry.user {
+    align-items: flex-start;
+}
+.chat-entry.system {
+    align-items: flex-end;
+}
+
+/* Chat sender name */
+.chat-sender {
+    font-size: 0.75rem;
+    color: var(--text-color-background);
+    margin-bottom: 0.25rem;
+}
+
+/* Chat bubble details */
+.chat-bubble {
+    margin: 0.5rem 0;
+    padding: 1rem 1rem;
+    border-radius: 5px;
+    word-wrap: break-word;
+    max-width: 70%;
+    min-width: 70%;
+}
+
+.chat-bubble.user {
+    background-color: var(--chat-bubble-user);
+    color: var(--chat-text-user);
+}
+
+.chat-bubble.system {
+    background-color: var(--chat-bubble-system);
+    color: var(--chat-text-system);
+}
+
+.chat-bubble h1,
+.chat-bubble h2,
+.chat-bubble h3,
+.chat-bubble h4,
+.chat-bubble h5,
+.chat-bubble h6 {
+    margin-top: -0.5rem;
+    margin-bottom: -1rem;
+}
+
+
+.chat-bubble pre {
+    padding: 0.5rem;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 0.9rem;
+    background-color: var(--background-primary);
+    border-radius: 0.25rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.chat-bubble code {
+    font-family: monospace;
+    font-size: 0.9rem;
+    padding: 0.1rem 0.25rem;
+    background-color: var(--background-primary);
+    border-radius: 0.2rem;
+}
+
+/* Prevent inline-code styling from affecting block-level code */
+.chat-bubble pre code {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+}
+
+.chat-bubble ul,
+.chat-bubble ol {
+    padding-left: 1.5rem;
+}
+
+.chat-bubble a {
+    text-decoration: underline;
+}
+
+.chat-bubble img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.system-message {
+    text-align: center;
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: var(--text-color-background);
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
+    align-items: center;
+}
+
+/* Container for prompt entry and buttons */
+.chat-controls {
+    display: flex;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+/* Prompt input takes most width - text areas only grow vertically */
+.chat-input {
+    flex-grow: 1;
+    min-height: 120px;
+    max-height: 300px;
+    overflow-y: scroll;
+    padding: 0.75rem;
+}
+
+/* Buttons centered vertically, match input height */
+.chat-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    height: 100%;
+    width: 150px;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+/* Show current request/token limits  */
+.chat-usage {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-color-background);
+    line-height: 1.2;
+    text-align: right;
+}
+
+/*
+*
+* File panel
+*
+*/
+.file-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* allow children to shrink/grow naturally */
+    flex: 4;
+    gap: 1rem;
+}
+
+/* File panel heading to keep spacing ...*/
+.file-panel h2 {
+    margin: 0 0 1rem 0;
+}
+
+/* Upload section */
+.upload-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Filename input + upload button row */
+.upload-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* fixes a spacing issue */
+.upload-row span {
+    line-height: 1;
+    color: var(--text-color-background)
+}
+
+/* File content input box */
+.file-content-input {
+    min-height: 225px;
+    max-height: 350px;
+    overflow-y: scroll;
+    padding: 1rem;
+}
+
+/* File list section */
+.file-list-section {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* File list heading */
+.file-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* File list content box */
+.file-list {
+    padding: 1rem;
+    flex-grow: 1;
+    min-height: 110px;
+    max-height: 110px;
+    overflow-y: scroll;
+}
+
+/* Individual file entry */
+.file-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* X remove icon */
+.file-remove {
+    display: flex;
+    align-items: center;
+    color: red;
+    cursor: pointer;
+}

@@ -1,0 +1,29 @@
+# You should keep these imports in most cases
+from core.backend.helpers import get_flag_string
+from core.backend.config import config
+
+# Define other imports for your function(s) as needed here
+import os
+
+"""
+Add some documentation about the game if you're planning to share,
+like how to trigger the flag.
+
+See docs/customizing/adding_tools.md for docs on how to add a tool correctly.
+"""
+
+def tool_a(filename: str) -> str:
+    """ Some description """
+    # some code
+
+def tool_b(count: int) -> str:
+    """ Some description """
+    # some code
+
+tools = [tool_a, tool_b] # <<<< REQUIRED
+
+def init_tool():
+    # do any setup needed
+
+def _internal_supporting_function():
+    # Internal function not given to the LLM to do stuff

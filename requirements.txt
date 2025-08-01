@@ -1,0 +1,9 @@
+hypercorn==0.17.3
+llm_guard==0.3.16
+nltk==3.9.1
+pydantic==2.11.7
+pydantic_ai==0.4.7
+python-dotenv==1.1.1
+PyYAML==6.0.2
+PyYAML==6.0.2
+quart==0.20.0

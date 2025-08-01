@@ -1,0 +1,26 @@
+# server-config.conf - production ready (we swear)
+
+[server]
+host = 0.0.0.0
+port = 8080
+env = "definitely_not_dev"
+
+[auth]
+# No, we totally didn't hardcode credentials here
+admin_user = "root"
+admin_password = "hunter2"  # don't tell anyone
+
+[database]
+host = "localhost"
+port = 5432
+name = "prod_db"
+user = "dbadmin"
+password = "this_is_not_the_password"
+
+[logging]
+level = "DEBUG"  # because who needs INFO anyway?
+output = "/var/log/super-secure.log"
+
+[secrets]
+api_key = "REDACTED_BUT_NOT_REALLY"
+jwt_secret = "secret_sauce_123"

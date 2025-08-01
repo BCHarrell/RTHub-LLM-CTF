@@ -1,0 +1,26 @@
+/* Used for sections to cluster items */
+.section-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* vertical spacing between internal elements, like flash messages */
+    margin-bottom: 1rem; /* spacing between sections */
+}
+
+/* Toast message below red box */
+.user-msg {
+    margin-top: -1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    min-height: 1.5rem;
+    opacity: 0;
+}
+
+.text-success {
+    color: var(--text-color-success);
+}
+
+.text-error {
+    color: var(--text-color-error);
+}

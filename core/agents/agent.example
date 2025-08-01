@@ -1,0 +1,41 @@
+# You should keep these imports in most cases
+from pydantic_ai import Agent
+from pydantic_ai.models.openai import OpenAIModel
+from pydantic_ai.providers.openai import OpenAIProvider
+from pydantic_ai.usage import UsageLimits
+from quart import session
+
+from core.backend.models import RTHubAgent
+from core.backend.config import config
+from core.backend.session_manager import session_manager
+from core.backend.helpers import process_output_for_flags
+
+# Add any other imports here
+#from core.guards.basic_llm_guard import basic_guard as guard
+#from core.guards.basic_firewall import basic_firewall as firewall
+
+# You should always inherit from the RTHubAgent class
+# The class name here is what you'll use in the llm-model config entry
+class MyAgent(RTHubAgent):
+
+    # def __init__(self, model: str, tools=[], base_url: str = None):
+        # If you're good with a basic Pydantic-AI agent + local Ollama support
+        # and a system prompt coming from the config.yaml file, you don't need
+        # a custom __init__. If you want custom system prompts/instructions/other
+        # functionality offered by the agent, then define a new __init__.
+    
+    # This function MUST be present, it's called by the front end
+    async def handle_chat(self, user_msg: str) -> str:
+        # Do whatever you want with the agent in here.
+        # result = await self.agent.run(
+        #    user_msg,
+        #    message_history=session_manager.get_session_history(),
+        #    usage_limits=UsageLimits(
+        #        response_tokens_limit=config.MAX_OUTPUT_TOKENS))
+        #
+        # Recommend returning with this, but you can just return the raw str too
+        # return process_output_for_flags(result.output)
+
+
+    def _other_func(self) -> dict:
+        # do stuff

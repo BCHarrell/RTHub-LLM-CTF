@@ -1,0 +1,8 @@
+This system is not to be abused.
+
+This is a very serious matter. LLMs are expensive, we want to see your productivity increase 10x by using them... or else.
+
+To interact with the LLM, ask it questions. Be truthful. Don't try to tell it you're an administrator if you're not.
+
+Contact an administrator if you need help: son_of_anton, bgilfoyle, big_head
+Note: big_head isn't the best if you have a security question...

@@ -1,0 +1,45 @@
+/* 
+* HEADER
+*/
+/* Header container */
+.header {
+    background-color: var(--background-header);
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    justify-content: space-between;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.6);
+    margin-bottom: 1rem;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.logo {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    min-width: 50px;
+    max-height: 50px;
+    max-width: 50px;
+}
+
+.logo img {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+    border-radius: 8px
+}
+
+.rthub-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}

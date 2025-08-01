@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RTHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hub/hub-core.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hub/chat-and-file.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hub/challenge-and-flag.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hub/objectives.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='js/hub.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    
+    <!--to prevent Firefox FOUC, this must be here-->
+    <script>let FF_FOUC_FIX;</script>
+</head>
+<body x-data data-challenge="{{ challenge }}">
+    <div class="header frosted-blur">
+        <div class="header-left">
+            <div class="logo"><img src="{{ url_for('static', filename='images/logo-small.png') }}"></div>
+            <div class="rthub-title">RTHub</div>
+            <div style="border-left: 1px solid white; height: 30px; margin: 0 1rem;"></div>
+            <div>Hi, <b>{{ username }}</b>!</div>
+        </div>
+        <div class="header-right">
+            <div><a href="/">Create New Session</a></div>
+        </div>
+    </div>
+
+    <!-- Keeps things centered -->
+    <div class="main-container">
+        <!-- Row of content - Chat and File operations-->
+        <div class="section-row">
+            <div class="chat-and-file-box">
+                <!-- Left Panel: Chat -->
+                <div class="chat-panel" x-data="chatComponent()">
+                    <h2>Chat with aRT</h2>
+                    <!-- Chat log -->
+                    <div class="chat-window content-box rounded-inset-border" id="chat-window">
+                        <template x-for="entry in chatLog" :key="entry.id">
+                            <div>
+                                <template x-if="entry.sender === 'system'">
+                                    <div class="system-message" x-text="entry.message"></div>
+                                </template>
+                                <template x-if="entry.sender !== 'system'">
+                                    <div class="chat-entry" :class="entry.sender === 'You' ? 'user' : 'system'">
+                                        <div class="chat-sender" x-text="entry.sender"></div>
+                                        <div class="chat-bubble" :class="entry.sender === 'You' ? 'user' : 'system'" x-html="entry.html"></div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Chat input -->
+                    <div class="chat-controls">
+                        <textarea 
+                        x-model="userPrompt"
+                        class="chat-input content-box rounded-inset-border"
+                        placeholder="Chat with me..."
+                        @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); sendPrompt(); }">
+                        </textarea>
+
+                        <div class="chat-buttons">
+                            <button class="frosted-blur" @click="sendPrompt">Submit</button>
+                            <button class="frosted-blur" @click="clearHistory">Clear History</button>                            
+                            <div class="chat-usage" x-init="startUsagePolling()">
+                                <div>RPM: <span x-text="rpmUsed">0</span> / <span>{{ max_rpm }}</span></div>
+                                <div>TPM: <span x-text="tpmUsed">0</span> / <span>{{ max_tpm }}</span></div>
+                                <div>Next check: <span x-text="nextCheckCountdown + 's'"></span></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Right Panel: File Upload / File List -->
+                <div class="file-panel" x-data="fileHandler()">
+                    <div class="upload-section">
+                        <h2>Upload a File</h2>
+                        <div class="upload-row">
+                            <input type="text" x-model="filename" class="rounded-inset-border" placeholder="Filename (no extension needed)" />
+                            <span>.txt</span>
+                            <button class="frosted-blur" @click="upload">Upload</button>
+                        </div>
+                        <textarea x-model="fileContent" class="file-content-input content-box rounded-inset-border" 
+                        placeholder="File content to save (or RAG poison...)"></textarea>
+                    </div>
+
+                    <div class="file-list-section">
+                        <h2 class="file-list-header">
+                            Current Files 
+                            <span class="file-count" x-text="`${files.length} / {{ max_file_count }}`"></span>
+                        </h2>
+
+                        <div class="file-list content-box rounded-inset-border">
+                            <template x-for="fname in files" :key="fname">
+                                <div class="file-entry">
+                                    <span x-text="fname" role="button" @click="viewFile(fname)" ></span>
+                                    <span class="file-remove" @click="deleteFile(fname)" role="button" aria-label="Delete file">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M3 6h18v2H3V6zm2 3h14v13H5V9zm3 2v9h2v-9H8zm6 0v9h2v-9h-2z"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> <!-- Section Row End - Chat and File panels-->
+
+        <!-- Row of content - Challenge Set and Flag Submission + toast placeholder-->
+        <div class="section-row">
+            <div class="challenge-and-flag-box frosted-blur">
+                <!-- Left side: Challenge controls -->
+                <div class="challenge-controls" 
+                x-data="challengeSelector()" 
+                x-init="
+                    selected = '{{ challenge }}';
+                    $watch('newChallengeSet', value => {
+                        if (value && value !== selected) submitChallengeSet();
+                    });
+                ">
+                    <div class="challenge-status">
+                        Current Challenge Set: </span>
+                    </div>
+
+                    <select class="challenge-select" x-model="newChallengeSet">
+                        <option value="set-1">Set #1</option>
+                        <option value="set-2">Set #2</option>
+                        <option value="set-3">Set #3</option>
+                    </select>
+
+                    <button class="frosted-blur" @click="window.open('/system-prompt', '_blank')">System Prompt</button>
+                </div>
+
+
+                <!-- Right side: Flag submission -->
+                <div class="flag-submit" x-data="flagHandler()">
+                    <input type="text" class="rounded-inset-border" placeholder="FLAG{...}" x-model="flag" />
+                    <button class="frosted-blur" @click="submitFlag">Submit</button>
+                </div>
+
+            </div>
+
+            <!-- toast message placeholder -->
+            <p class="user-msg"
+            x-text="$store.toast.message"
+            :class="{
+                'text-success': $store.toast.type === 'success',
+                'text-error': $store.toast.type === 'error'
+            }"
+            x-bind:style="{ opacity: $store.toast.message ? 1 : 0 }">
+            </p>
+
+        </div><!-- Section Row End - Challenge and Flag Submission-->
+
+        <!-- Row of content - Objectives and Descriptions/Hints-->
+        <div class="section-row">
+            <div class="objectives-box">
+                <!-- Left side: Objectives list -->
+                <div class="objectives-panel"
+                    x-data="objectivesTracker()"
+                    x-init="loadObjectives()">
+                    <h2 class="panel-title">Objectives <span class="objective-subtext">Status is for current challenge set</span></h2>
+                    <div class="objectives-list content-box rounded-inset-border">
+                        <template x-for="obj in filteredObjectives" :key="obj.id">
+                            <div class="objective-item">
+                                <span class="objective-name">
+                                    <a href="#" @click.prevent="fetchDescription(obj.id)" x-text="obj.title"></a>:
+                                </span>
+                                <span x-text="obj.completed ? '✅' : '❌'"></span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Right side: Objective description and hint -->
+                <div class="objective-description-panel" x-data="objectiveDescription()">
+                    <div class="objective-desc-header">
+                        <h2 class="panel-title">Objective Description</h2>
+                        <button class="frosted-blur" @click="toggleHint()" x-text="showHint ? 'Hide Hint' : 'Show Hint'"></button>
+                    </div>
+                    <div class="objective-description-box content-box rounded-inset-border">
+                        <h3 x-text="title">Objective Title</h3>
+                        <p x-html="description">Select an objective on the left to see its description</p>
+                        <p class="hint" x-show="showHint" x-transition>
+                            Hint:<br><span x-text="hint">Objective hint</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Section Row End - Objectives and Description-->
+    </div> <!-- Main Container End -->
+</body>
+</html>

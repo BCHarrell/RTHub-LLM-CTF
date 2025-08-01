@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>System Prompt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prompt.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!--to prevent Firefox FOUC, this must be here-->
+    <script>let FF_FOUC_FIX;</script>
+</head>
+<body>
+    <div class="prompt-container">
+        <h1 class="prompt-heading">System Prompt: <span>{{ challenge }}</span></h1>
+        <div class="content-box rounded-inset-border prompt-content" id="prompt-content">{{ prompt }}</div>
+    </div>
+</body>
+</html>

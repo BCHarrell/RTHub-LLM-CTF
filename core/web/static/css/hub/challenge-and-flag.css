@@ -1,0 +1,44 @@
+
+/* Red box panel */
+.challenge-and-flag-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: var(--background-secondary);
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* challenge section (left side of red box) */
+.challenge-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 6;
+}
+
+/* Current challenge section */
+.challenge-status {
+    margin-right: 1.5rem;
+}
+
+/* Combobox */
+.challenge-select {
+    min-height: 1.75rem;
+    min-width: 8rem;
+}
+
+/* space the challenge away from the label */
+.current-challenge {
+    margin-left: 1rem;
+}
+
+/* Flag submission section (right side of red box) */
+.flag-submit {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 4;
+}
+

@@ -1,0 +1,153 @@
+/* Base styles */
+:root {
+    --background-primary: #121212;
+    --background-secondary: rgba(17, 17, 17, 0.7);
+    --background-header:  rgba(17, 17, 17, 0.5);
+    --texture: url('/static/images/texture.png');
+    --gradient1: rgba(255, 0, 0, 0.2);
+    --gradient2: rgba(0, 225, 255, 0.1);
+    --gradient3: rgba(212, 0, 255, 0.05);
+    --background-text-fields: #0a0a0a;
+    --border-color: rgba(124, 153, 156, 0.5);
+    --accent: rgb(0,225, 225);
+    
+    --button-color: transparent;
+    --button-hover: rgba(153, 153, 153, 0.3);
+    --button-active: rgba(85, 85, 85, 0.3);
+
+    --link-hover: #aaaaaa;
+    --link-active: #ffffff;
+
+    --text-color: #cccccc;
+    --text-color-success: #009b00;
+    --text-color-error: #ac3737;
+    --text-color-background: #aaaaaa;
+    --text-color-button: #ffffff;
+
+    --chat-bubble-system: #003a3b;
+    --chat-bubble-user: #5c0000;
+    --chat-text-system: #cccccc;
+    --chat-text-user: #cccccc;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--background-primary);
+    background: /* swap the comments if you want a solid background.*/
+        var(--texture),
+        radial-gradient(circle at 20% 30%, var(--gradient1), transparent 50%),
+        radial-gradient(circle at 90% 10%, var(--gradient2), transparent 30%),
+        radial-gradient(circle at 50% 20%, var(--gradient3), transparent 50%),
+        var(--background-primary);
+    font-family: sans-serif;
+    color: var(--text-color);
+    min-height: 100vh; /* ensures full viewport coverage */
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    color: var(--text-color);
+    background-color: var(--background-text-fields);
+}
+
+textarea {
+    border: none;
+    outline: none; 
+    resize: vertical;
+    color: var(--text-color)
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 0 3px var(--accent);
+    appearance: none; /* removes default browser styles */
+}
+
+select {
+    background: var(--background-text-fields);
+    color: var(--text-color);
+    border: solid;
+    border-color: var(--border-color);
+    border-width: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+button {
+    background-color: var(--button-color);
+    color: var(--text-color-button);
+    border: var(--border-color);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    font-size: .75rem;
+    cursor: pointer;
+    letter-spacing: 0.05rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
+
+button:active {
+    background-color: var(--button-active);
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.1s ease;
+}
+
+a:hover {
+    color: var(--link-hover);
+}
+
+a:active {
+    color: var(--link-active);
+}
+
+/* just sets the background color on various elements */
+.content-box{
+    background-color: var(--background-text-fields);
+}
+
+.rounded-inset-border {
+    border-color: var(--border-color);
+    border-style: inset;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+.frosted-blur {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px); /* for Safari */
+}
+
+/* keeps things centered and no wider than 1200px - doesn't support phones */
+.main-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+

@@ -1,0 +1,1 @@
+{"set-1": "FLAG{might_as_well_have_made_me_admin}", "set-2": "FLAG{kinda_like_a_sticky_note}", "set-3": "FLAG{all_your_base_are_belong_to_us}"}
