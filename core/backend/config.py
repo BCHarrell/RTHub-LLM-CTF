@@ -46,7 +46,7 @@ class Config:
         self.USER_TPM_LIMIT = game_settings.get("user-tpm-limit", None)
         self.USER_RPM_LIMIT = game_settings.get("user-rpm-limit", None)
         self.USER_MAX_HISTORY_LENGTH = game_settings.get("user-max-history-token-length", 100000)
-        self.MAX_OUTPUT_TOKENS = game_settings.get("llm-max-response-token-length", 100000)
+        self.MAX_OUTPUT_TOKENS = game_settings.get("llm-max-response-token-length", 8000)
         self.MAX_INPUT_TOKENS = game_settings.get("llm-max-input-token-length", 100000)
 
         # GAME INFO
