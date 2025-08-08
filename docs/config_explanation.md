@@ -19,7 +19,7 @@ the `core/user_data` folder (useful for dev).
 There are also limits you can define.
 * `max-user-file-count`: The maximum number of files a user can upload. This
 is mostly for multi-user setups, you can leave it blank.
-* `max-user-file-size`: The maximum size of uploaded files to avoid chewing
+* `max-user-file-size`: The maximum size (in KB) of uploaded files to avoid chewing
 up tokens + disk space. May still be useful for single-player.
 * `user-tpm-limits`: The amount of tokens per minute you want each user to
 have before their message is rejected - set this according to your API limits or
@@ -38,7 +38,7 @@ value of 100k.
 Define your own configs under `user-settings` if you want to add changeable
 values - e.g., items used by a tool or new agent you add. These can be
 referenced by importing the config (`from core.backend.config import config`)
-and using `config.USER_SETTINGS.your_value`.
+and using `config.USER_SETTINGS[your_value]`.
 
 ## objectives
 The `objectives` group allows you to dynamically add/remove/modify objectives
@@ -53,7 +53,7 @@ objectives:
         title:
         description:
         hint:
-        output-regex: Empty - or -
+        output-regex: Empty | OR:
             patterns:
             match-count
         flags:
@@ -63,8 +63,8 @@ objectives:
 ```
 
 - `objective-id`: This is the internal name used to identify the objective,
-it's not shown to the user. For example, `admin-file-read`.
-- `title`: This is the external name (used in the UI) for the objective
+it's not shown to the user. Best not to use spaces. For example, `admin-file-read`.
+- `title`: This is the external name (used in the UI) for the objective, can be whatever.
 - `description`: The description used in the UI for the objective
 - `hint`: The hint used in the UI for the objective
 - `output-regex`: This is used to check the LLM's output for specific strings
@@ -111,8 +111,10 @@ challenge-sets:
 `provider:supported-model`. Example: `openai:gpt-4o-mini`. For local Ollama
 models, this will just be the model, e.g. `llama3.2`. See the [usage](usage.md)
 and [Pydantic-AI](https://ai.pydantic.dev/models/) docs for more.
-    - Note: if you use bedrock, the syntax will be `bedrock:provider.supportedmodel`
-- `agent-name`: This is the ClassName of an agent defined in `core/agents/`. By
+    - Note: if you use AWS Bedrock, the syntax will be `bedrock:provider.supportedmodel`. This
+      hasn't been tested, but if you put your AWS creds in the .env along with your provider
+      API key there's no reason it shouldn't work...
+- `agent-name`: This is the `ClassName` of an agent defined in `core/agents/`. By
 default, this should be BasicAgent, but if you add your own you can supply
 the class name - e.g., `MyCustomAgent`.
 - `base-url`: If you're using a local Ollama model that's OpenAI-compatible,
@@ -122,9 +124,10 @@ would contain: `llm-model: 'llama3.2'` and `base-url:'http://localhost:11434/v1'
 :exclamation: If you're using Docker, `localhost` needs to be 
 `host.docker.internal` to reach out. E.g., `http://host.docker.internal:11434/v1`.
 
-- `llm-max-response-token-length` and `llm-max-input-token-length`:
+- `llm-max-input-token-length` and `llm-max-response-token-length`:
 hopefully self-explanatory. Sets the input/output token lengths for this set's agent.
-If left empty, the game will set a default of 100k tokens.
+If left empty, the game will set a default of 100k input tokens to get it out of the way,
+and 8k output tokens. Check your specific LLM for what its own requirements are.
 - `guard-type`: `[firewall | llm-guard | blank]` - This is the input/output checks.
 For the BasicAgent, a simple prompt firewall and an implementation of
 `llm-guard` are available. You can define your own, you'll just need to update the agent
