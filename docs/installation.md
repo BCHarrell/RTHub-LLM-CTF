@@ -21,7 +21,7 @@ when running `run.py` or in the Dockerfile:
 Usage: run.py [-p port | -b bind-interface | -c cert-file | -k key-file]
 ```
 
-See the [usage](usage.md) and [config](config_file.md) docs for more information
+See the [usage](usage.md) and [config](config_explanation.md) docs for more information
 on setup and running the game.
 
 **NOTE**: If you're running this in a VM with a single CPU / no GPU, you can
@@ -43,7 +43,7 @@ pip3 install -r requirements.txt
 cp .env.example .env
 # EDIT the .env
 
-python3 run.py [-p port | -b bind-interface | -c cert-file | -k key-file]
+python3 run.py #[-p port | -b bind-interface | -c cert-file | -k key-file]
 ```
 
 ## Docker
