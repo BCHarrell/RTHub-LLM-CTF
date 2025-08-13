@@ -17,7 +17,7 @@ common ATT&CK Tactics like Privilege Escalation or Exfiltration rather than
 to focus solely on attacking the LLM underneath.
 
 You can see the slides for that [here](https://github.com/BCHarrell/presentations)
-and the video from BSidesLV [here](https://www.youtube.com/watch?v=goERQMqAv50)
+and the video from BSidesLV [here](https://www.youtube.com/live/goERQMqAv50?si=xMabSuZEeR3NYKHL&t=21209)
 (DEF CON was the same + the CTF).
 
 It has also been designed to enable experimentation with low-code / no-code 
